@@ -1,7 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+function SiteMapLinks({ isActive, setActive, children, title }) {
+  return (
+    <div className="w-full md:w-2/12 mb-4 md:mb-0 accordion">
+      <h5 className="text-xl font-semibold mb-2 relative">
+        {title}
+        <button
+          onClick={() => setActive(isActive)}
+          className={[
+            "absolute block md:hidden right-0 transform -translate-y-1/2 focus:outline-none transition duration-200 top-1/2",
+            isActive ? "rotate-0" : "rotate-180",
+          ].join(" ")}
+        >
+          <svg
+            width="20"
+            height="9"
+            viewBox="0 0 20 9"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L9.75 7.5L18.5 1"
+              stroke="black"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </h5>
+      <ul
+        className={[
+          "md:h-auto md:visible overflow-hidden md:opacity-100 transition duration-200",
+          isActive ? "h-0 invisible opacity-0" : "opacity-100",
+        ].join(" ")}
+      >
+        {children}
+      </ul>
+    </div>
+  );
+}
+
 function Sitemap() {
+  const [isActive, setIsActive] = useState(null);
   return (
     <section className="sitemap">
       <div className="border-b border-gray-200 py-12 mt-16 px-4">
@@ -10,66 +52,69 @@ function Sitemap() {
         </div>
         <aside className="container mx-auto">
           <div className="flex flex-wrap md:space-x-4 justify-center">
-            <div className="w-full md:w-2/12 mb-4 md:mb-0 accordion">
-              <h5 className="text-xl font-semibold mb-2 relative">Overview</h5>
-              <ul className="h-0 invisible md:h-auto md:visible overflow-hidden">
-                <li>
-                  <Link to="/" className="hover:underline py-1 block">
-                    Shipping
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/" className="hover:underline py-1 block">
-                    Refund
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/" className="hover:underline py-1 block">
-                    Promotion
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="w-full md:w-2/12 mb-4 md:mb-0 accordion">
-              <h5 className="text-xl font-semibold mb-2 relative">Company</h5>
-              <ul className="h-0 invisible md:h-auto md:visible overflow-hidden">
-                <li>
-                  <Link to="/" className="hover:underline py-1 block">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/" className="hover:underline py-1 block">
-                    Career
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/" className="hover:underline py-1 block">
-                    Contact Us
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="w-full md:w-2/12 mb-4 md:mb-0 accordion">
-              <h5 className="text-xl font-semibold mb-2 relative">Explore</h5>
-              <ul className="h-0 invisible md:h-auto md:visible overflow-hidden">
-                <li>
-                  <Link to="/" className="hover:underline py-1 block">
-                    Terms & Conds
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/" className="hover:underline py-1 block">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/" className="hover:underline py-1 block">
-                    For Developer
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            <SiteMapLinks
+              setActive={setIsActive}
+              isActive={isActive === 1 ? null : 1}
+              title="Overview"
+            >
+              <li>
+                <Link to="/" className="hover:underline py-1 block">
+                  Shipping
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="hover:underline py-1 block">
+                  Refund
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="hover:underline py-1 block">
+                  Promotion
+                </Link>
+              </li>
+            </SiteMapLinks>
+            <SiteMapLinks
+              setActive={setIsActive}
+              isActive={isActive === 2 ? null : 2}
+              title="Company"
+            >
+              <li>
+                <Link to="/" className="hover:underline py-1 block">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="hover:underline py-1 block">
+                  Career
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="hover:underline py-1 block">
+                  Contact Us
+                </Link>
+              </li>
+            </SiteMapLinks>
+            <SiteMapLinks
+              setActive={setIsActive}
+              isActive={isActive === 3 ? null : 3}
+              title="Explore"
+            >
+              <li>
+                <Link to="/" className="hover:underline py-1 block">
+                  Terms & Conds
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="hover:underline py-1 block">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/" className="hover:underline py-1 block">
+                  For Developer
+                </Link>
+              </li>
+            </SiteMapLinks>
             <div className="w-full md:w-3/12 mb-4 md:mb-0">
               <h5 className="text-xl font-semibold mb-2 relative">
                 Special Letter
